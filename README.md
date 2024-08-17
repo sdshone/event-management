@@ -44,13 +44,25 @@ curl -X DELETE http://localhost:3000/api/events/1 \
 6. Get All Events
 
 ```bash
-Copy code
 curl -X GET http://localhost:3000/api/events
 ```
 
 7. Get a Specific Event
 
 ```bash
-Copy code
 curl -X GET http://localhost:3000/api/events/1
+```
+
+8. Register for an Event
+
+```bash
+curl -X POST http://localhost:3000/api/events/1/register \
+-H "Authorization: Bearer <your_jwt_token>"
+```
+
+9. View Event Participants
+
+```bash
+curl -X GET http://localhost:3000/api/events/1/participants \
+-H "Authorization: Bearer <your_jwt_token>"
 ```

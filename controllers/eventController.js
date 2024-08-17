@@ -58,3 +58,35 @@ exports.getEvents = (req, res) => {
     }
     res.json(events);
 };
+
+
+// Register Participant for Event
+exports.registerForEvent = (req, res) => {
+    const { id } = req.params;
+    const event = events.find(e => e.id == id);
+
+    if (!event) {
+        return res.status(404).json({ message: 'Event not found' });
+    }
+
+    // Check if user is already registered
+    if (event.participants.includes(req.user.userId)) {
+        return res.status(400).json({ message: 'User already registered for this event' });
+    }
+
+    // Register the user
+    event.participants.push(req.user.userId);
+    res.status(200).json({ message: 'Successfully registered for the event', event });
+};
+
+// View Event Participants
+exports.getEventParticipants = (req, res) => {
+    const { id } = req.params;
+    const event = events.find(e => e.id == id);
+
+    if (!event) {
+        return res.status(404).json({ message: 'Event not found' });
+    }
+
+    res.status(200).json({ participants: event.participants });
+};

@@ -10,4 +10,9 @@ router.delete('/events/:id', verifyToken, eventController.deleteEvent);
 router.get('/events', eventController.getEvents);
 router.get('/events/:id', eventController.getEvents);
 
+// Participant management routes
+router.post('/events/:id/register', verifyToken, eventController.registerForEvent);
+router.get('/events/:id/participants', verifyToken, eventController.getEventParticipants);
+
+
 module.exports = router;
