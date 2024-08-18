@@ -1,4 +1,6 @@
 const events = require('../models/eventModel');
+const users = require('../models/userModel');
+const emailService = require('../services/emailService');
 
 // Create Event
 exports.createEvent = (req, res) => {
@@ -61,7 +63,7 @@ exports.getEvents = (req, res) => {
 
 
 // Register Participant for Event
-exports.registerForEvent = (req, res) => {
+exports.registerForEvent = async (req, res) => {
     const { id } = req.params;
     const event = events.find(e => e.id == id);
 
@@ -76,6 +78,15 @@ exports.registerForEvent = (req, res) => {
 
     // Register the user
     event.participants.push(req.user.userId);
+
+    // Get the user's email from the in-memory user data
+    const user = users.find(u => u.id == req.user.userId);
+
+    if (user) {
+        // Send email notification
+        await emailService.sendRegistrationEmail(user.email, event.title);
+    }
+
     res.status(200).json({ message: 'Successfully registered for the event', event });
 };
 
