@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "tap test/*.js --disable-coverage",
     "start": "node index.js",
     "dev": "nodemon index.js"
   },
@@ -19,6 +19,8 @@
     "nodemailer": "^6.9.14"
   },
   "devDependencies": {
-    "nodemon": "^3.1.4"
+    "nodemon": "^3.1.4",
+    "supertest": "^6.3.4",
+    "tap": "^18.6.1"
   }
 }
